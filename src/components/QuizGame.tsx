@@ -1,16 +1,11 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
-import {
-  nextQuestion,
-  previousQuestion,
-  answerQuestion,
-  restartGame,
-} from "../features/quiz/quizSlice";
+import { answerQuestion, restartGame } from "../features/quiz/quizSlice";
 
 const QuizGame: React.FC = () => {
   const dispatch = useDispatch();
-  const { questions, currentQuestionIndex, score, gameOver } = useSelector(
+  const { questions, currentQuestionIndex, gameOver } = useSelector(
     (state: RootState) => state.quiz
   );
 
