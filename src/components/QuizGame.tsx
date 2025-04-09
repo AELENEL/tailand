@@ -1,11 +1,16 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
-import { answerQuestion, restartGame } from "../features/quiz/quizSlice";
+import {
+  nextQuestion,
+  previousQuestion,
+  answerQuestion,
+  restartGame,
+} from "../features/quiz/quizSlice";
 
 const QuizGame: React.FC = () => {
   const dispatch = useDispatch();
-  const { questions, currentQuestionIndex, gameOver } = useSelector(
+  const { questions, currentQuestionIndex, score, gameOver } = useSelector(
     (state: RootState) => state.quiz
   );
 
@@ -36,7 +41,9 @@ const QuizGame: React.FC = () => {
     return (
       <div>
         <h2>Мужчина!Ни секунды не сомневался</h2>
-
+        <p>
+          Твой результат: {score} из {questions.length}
+        </p>
         <button onClick={() => dispatch(restartGame())}>Начать заново</button>
       </div>
     );

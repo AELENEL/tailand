@@ -22,7 +22,7 @@ const initialState: QuizState = {
       id: 3,
       question: "Ты меня любишь?",
       options: ["Да", "Нет"],
-      answer: 1,
+      answer: 0,
     },
   ],
   currentQuestionIndex: 0,
