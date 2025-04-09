@@ -1,0 +1,456 @@
+// Переменные для основных цветов
+$primary-color: #4e54c8;
+$secondary-color: #8f94fb;
+$accent-color: #ff7676;
+$text-color: #333333;
+$light-text: #ffffff;
+$dark-bg: #1a1a2e;
+$light-bg: #f9f9f9;
+$border-radius: 8px;
+$box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+// Переменные для размеров экрана
+$mobile: 576px;
+$tablet: 768px;
+$desktop: 992px;
+$large-desktop: 1200px;
+
+// Миксины для адаптивного дизайна
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$mobile + 1}) and (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$tablet + 1}) and (max-width: #{$desktop}) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: #{$desktop + 1}) {
+    @content;
+  }
+}
+
+// Миксины для часто используемых стилей
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin gradient-bg {
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  color: $light-text;
+}
+
+@mixin card {
+  background-color: $light-bg;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Базовые стили
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+  color: $text-color;
+  background-color: $light-bg;
+}
+
+// Стили контейнера для содержимого
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  @include mobile {
+    padding: 0 15px;
+  }
+}
+
+// Стили для навигации
+.navbar {
+  @include gradient-bg;
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  &__container {
+    @include flex-center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+    color: $light-text;
+  }
+
+  &__menu {
+    display: flex;
+    list-style: none;
+
+    @include mobile {
+      display: none;
+
+      &.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: $dark-bg;
+        padding: 20px;
+      }
+    }
+  }
+
+  &__item {
+    margin-left: 30px;
+
+    @include mobile {
+      margin: 10px 0;
+    }
+  }
+
+  &__link {
+    color: $light-text;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__toggle {
+    display: none;
+    font-size: 24px;
+    color: $light-text;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    @include mobile {
+      display: block;
+    }
+  }
+}
+
+// Стили для секций
+.section {
+  padding: 80px 0;
+
+  @include mobile {
+    padding: 50px 0;
+  }
+
+  &__title {
+    font-size: 36px;
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+
+    @include mobile {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, $primary-color, $secondary-color);
+      margin: 15px auto 0;
+      border-radius: 2px;
+    }
+  }
+
+  &--dark {
+    background-color: $dark-bg;
+    color: $light-text;
+  }
+}
+
+// Сетка карточек
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+
+  @include desktop {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+// Стили для карточек
+.card {
+  @include card;
+
+  &__title {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: $primary-color;
+  }
+
+  &__text {
+    margin-bottom: 20px;
+  }
+
+  &__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: $border-radius;
+    margin-bottom: 15px;
+  }
+
+  &__button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: $primary-color;
+    color: $light-text;
+    text-decoration: none;
+    border-radius: $border-radius;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+
+  &--featured {
+    grid-column: span 2;
+
+    @include mobile {
+      grid-column: span 1;
+    }
+  }
+}
+
+// Стили для кнопок
+.button {
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: $border-radius;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+
+  &--primary {
+    @include gradient-bg;
+
+    &:hover {
+      background: linear-gradient(
+        135deg,
+        darken($primary-color, 5%),
+        darken($secondary-color, 5%)
+      );
+      box-shadow: 0 5px 15px rgba($primary-color, 0.4);
+    }
+  }
+
+  &--outline {
+    background: transparent;
+    border: 2px solid $primary-color;
+    color: $primary-color;
+
+    &:hover {
+      background-color: $primary-color;
+      color: $light-text;
+    }
+  }
+
+  &--large {
+    padding: 15px 30px;
+    font-size: 18px;
+  }
+
+  &--center {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 200px;
+  }
+}
+
+// Стили для подвала
+.footer {
+  background-color: $dark-bg;
+  color: $light-text;
+  padding: 60px 0 30px;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__logo {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  &__heading {
+    font-size: 18px;
+    margin-bottom: 20px;
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 3px;
+      background-color: $accent-color;
+      margin-top: 10px;
+    }
+  }
+
+  &__list {
+    list-style: none;
+  }
+
+  &__item {
+    margin-bottom: 10px;
+  }
+
+  &__link {
+    color: rgba($light-text, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $accent-color;
+    }
+  }
+
+  &__social {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  &__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba($light-text, 0.1);
+    color: $light-text;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: $accent-color;
+      transform: translateY(-3px);
+    }
+  }
+
+  &__bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba($light-text, 0.1);
+    font-size: 14px;
+    color: rgba($light-text, 0.6);
+  }
+}
+
+// Анимации
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+// Классы для отступов
+.mb-1 {
+  margin-bottom: 10px;
+}
+.mb-2 {
+  margin-bottom: 20px;
+}
+.mb-3 {
+  margin-bottom: 30px;
+}
+.mb-4 {
+  margin-bottom: 40px;
+}
+.mb-5 {
+  margin-bottom: 50px;
+}
+
+.mt-1 {
+  margin-top: 10px;
+}
+.mt-2 {
+  margin-top: 20px;
+}
+.mt-3 {
+  margin-top: 30px;
+}
+.mt-4 {
+  margin-top: 40px;
+}
+.mt-5 {
+  margin-top: 50px;
+}
