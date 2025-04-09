@@ -4,14 +4,18 @@ const initialState: QuizState = {
   questions: [
     {
       id: 1,
-      question: "Ты транс?",
-      options: ["Да", "Нет"],
+      question: "Что такое Redux?",
+      options: [
+        "Библиотека для работы с DOM",
+        "Менеджер состояния",
+        "Фреймворк",
+      ],
       answer: 1,
     },
     {
       id: 2,
-      question: "Любишь BBC?",
-      options: ["Да", "Естественно", "Нет"],
+      question: "Какой метод обновляет состояние в Redux?",
+      options: ["setState", "dispatch", "useState"],
       answer: 1,
     },
     {
